@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  db-template:
+    image: postgres:14.1-alpine
+    container_name: db-template
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - './db-template:/var/lib/postgresql/data'
+      - './src/infrastructure/database/init.sql:/docker-entrypoint-initdb.d/create_tables.sql'
+volumes:
+  db-template:
+    driver: local
